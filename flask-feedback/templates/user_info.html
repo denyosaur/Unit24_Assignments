@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Flask Feedback{% endblock %}
+{% block body %}
+<h1>Registration</h1>
+<div>
+    <form action="/users/{{user.username}}" method="POST">
+        {{ form.hidden_tag() }}
+
+        {% for field in form if field.widget.input_type != 'hidden' %}
+        {% if field != form.password %}
+        <div>
+            {{ field.label }}
+            {{ field(class_="form-control") }}
+            {% for error in field.errors %}
+            {{ error }}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endfor %}
+        <button>Submit</button>
+    </form>
+    <hr>
+    <div>
+        <div>
+            <form action="/users/{{user.username}}/feedback/add" method="GET">
+                <button>Add Feedback</button>
+            </form>
+        </div>
+        <ul>
+            {% for feedback in user.feedback %}
+            <li>
+                <b>{{feedback.title}}</b> - <small>{{feedback.content}}</small>
+                <form action="">
+                    <button formmethod="GET" formaction="/feedback/{{feedback.id}}/update">Edit</button>
+                    <button formmethod="POST" formaction="/feedback/{{feedback.id}}/delete">Delete</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

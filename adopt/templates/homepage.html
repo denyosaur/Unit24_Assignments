@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block body %}
+{% for pet in pets %}
+<div>
+    {% if pet.available %}
+    <div class="col-md-4">
+        <img src="{{pet.photo_url}}" class="pet-photo" alt="photo of {{pet.name}}">
+        <a href="" class="adoptable">{{pet.name}} is <b>available</b>!</a>
+    </div>
+
+    {% else %}
+    <div class="col-md-4">
+        <img src="{{pet.photo_url}}" class="pet-photo" alt="photo of {{pet.name}}">
+        <a href="" class="not-adoptable">{{pet.name}} is adopted!</a>
+    </div>
+    {% endif %}
+</div>
+{% endfor %}
+<div>
+    <form action="/add">
+        <button type="submit" class="btn btn-primary">Add a Pet</button>
+    </form>
+</div>
+
+{% endblock %}

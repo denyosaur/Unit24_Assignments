@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Flask Feedback{% endblock %}
+{% block body %}
+<h1>Add Feedback</h1>
+<div>
+    <form action="/users/{{username}}/feedback/add" method="POST">
+        {{ form.hidden_tag() }}
+
+        {% for field in form if field.widget.input_type != 'hidden' %}
+        {% if field != form.password %}
+        <div>
+            {{ field.label }}
+            {{ field(class_="form-control") }}
+            {% for error in field.errors %}
+            {{ error }}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endfor %}
+        <button>Submit</button>
+    </form>
+</div>
+{% endblock %}

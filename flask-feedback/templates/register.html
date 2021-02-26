@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Flask Feedback{% endblock %}
+{% block body %}
+<h1>Registration</h1>
+<div>
+    <form action="/register" method="POST">
+        {{ form.hidden_tag() }}
+
+        {% for field in form if field.widget.input_type != 'hidden' %}
+        <div>
+            {{ field.label }}
+            {{ field(class_="form-control") }}
+            {% for error in field.errors %}
+            {{ error }}
+            {% endfor %}
+            {% endfor %}
+        </div>
+        <button>Submit</button>
+    </form>
+</div>
+{% endblock %}
